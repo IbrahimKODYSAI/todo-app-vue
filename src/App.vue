@@ -78,7 +78,7 @@ export default {
 
 <template>
   <main
-    class="app w-[100vw] max-w-[1000px] m-auto rounded-md p-2 min-h-[100vh] relative"
+    class="app w-[100vw] max-w-[1000px] m-auto rounded-md p-2 min-h-[90vh] border-2 border-sky-500 pb-20 border-b-0 rounded-b-none"
   >
     <section class="greeting">
       <h2 class="title">
@@ -160,11 +160,13 @@ export default {
         </div>
       </div>
     </section>
+  </main>
+  <footer class="h-[10vh]">
     <div
-      class="absolute bg-black py-4 text-gray-600 text-sm text-center bottom-0 w-full left-0 rounded-b-md"
+      class="bg-black h-full text-gray-600 text-sm text-center flex flex-col justify-center space-y-2"
     >
       <p>Todo Genius</p>
       <p>all right reserved® Kody saneda 2023</p>
     </div>
-  </main>
+  </footer>
 </template>
