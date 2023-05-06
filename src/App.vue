@@ -10,7 +10,7 @@ const input_category = ref(null);
 
 const todos_asc = computed(() =>
   todos.value.sort((a, b) => {
-    return a.createdAt - b.createdAt;
+    return b.createdAt - a.createdAt;
   })
 );
 
@@ -67,21 +67,19 @@ export default {
   methods: {
     editContent() {
       this.isEditing = true;
-      this.$nextTick(() => this.$refs.textarea.focus());
+      this.$nextTick(() => this.$refs.input);
     },
     stopEditing() {
       this.isEditing = false;
-    },
-    resizeTextarea() {
-      this.$refs.textarea.style.height = "auto";
-      this.$refs.textarea.style.height = `${this.$refs.textarea.scrollHeight}px`;
     },
   },
 };
 </script>
 
 <template>
-  <main class="app w-[100vw] max-w-[1000px] m-auto rounded-md p-2 h-[100vh]">
+  <main
+    class="app w-[100vw] max-w-[1000px] m-auto rounded-md p-2 min-h-[100vh] border-2 border-green-500 pb-20"
+  >
     <section class="greeting">
       <h2 class="title">
         What's up, <input type="text" placeholder="Name here" v-model="name" />
@@ -136,19 +134,22 @@ export default {
           </label>
           <div class="todo-content" @click="editContent">
             <template v-if="!isEditing">
-              <span class="break-words overflow-ellipsis">{{
-                todo.content
-              }}</span>
+              <p
+                class="words-break w-full overflow-hidden max-h-[75px] cursor-pointer overflow-ellipsis"
+              >
+                {{
+                  todo.content !== "" ? todo.content : "Type your task please"
+                }}
+              </p>
             </template>
             <template v-else>
-              <textarea
+              <input
+                type="text"
                 v-model="todo.content"
-                ref="textarea"
-                rows="1"
-                max-rows="6"
+                class="overflow-ellipsis"
+                ref="input"
                 @blur="stopEditing"
-                @input="resizeTextarea"
-              ></textarea>
+              />
             </template>
           </div>
           <div class="actions">
@@ -158,4 +159,10 @@ export default {
       </div>
     </section>
   </main>
+  <footer>
+    <div class="bg-black py-4 text-gray-600 text-sm text-center">
+      <p>Todo Genius</p>
+      <p>all right reserved® Kody saneda 2023</p>
+    </div>
+  </footer>
 </template>
