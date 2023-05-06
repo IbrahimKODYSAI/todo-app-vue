@@ -236,9 +236,3 @@ input:checked ~ .bubble::after {
   text-decoration: line-through;
   color: var(--grey);
 }
-
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
