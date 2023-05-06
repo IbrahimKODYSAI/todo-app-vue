@@ -78,7 +78,7 @@ export default {
 
 <template>
   <main
-    class="app w-[100vw] max-w-[1000px] m-auto rounded-md p-2 min-h-[100vh] border-2 border-green-500 pb-20 relative"
+    class="app w-[100vw] max-w-[1000px] m-auto rounded-md p-2 min-h-[100vh] relative"
   >
     <section class="greeting">
       <h2 class="title">
