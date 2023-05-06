@@ -137,9 +137,7 @@ export default {
               <p
                 class="words-break w-full overflow-hidden max-h-[75px] cursor-pointer overflow-ellipsis"
               >
-                {{
-                  todo.content !== "" ? todo.content : "Type your task please"
-                }}
+                {{ todo.content || "Type your task please" }}
               </p>
             </template>
             <template v-else>
@@ -153,7 +151,11 @@ export default {
             </template>
           </div>
           <div class="actions">
-            <button class="delete" @click="removeTodo(todo)">Delete</button>
+            <button @click="removeTodo(todo)">
+              <i
+                class="fa-solid fa-trash text-[#ff5b57] cursor-pointer text-xl"
+              ></i>
+            </button>
           </div>
         </div>
       </div>
