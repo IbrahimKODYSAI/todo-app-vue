@@ -198,14 +198,23 @@ input:checked ~ .bubble::after {
   flex: 1 1 0%;
 }
 
-.todo-item .todo-content input {
+.todo-item .todo-content textarea {
   color: var(--dark);
   font-size: 1.125rem;
+  width: 100%;
+  min-height: 20px;
+  overflow: hidden;
+  border: none;
+  resize: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 .todo-item .actions {
   display: flex;
   align-items: center;
+  margin-left: 10px;
 }
 
 .todo-item .actions button {

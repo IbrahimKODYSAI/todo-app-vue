@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
+import Counter from "./components/Counter/Counter.vue";
 
 const todos = ref([]);
 const name = ref("");
@@ -35,6 +36,7 @@ const addTodo = () => {
 const removeTodo = (todo) => {
   todos.value = todos.value.filter((item) => item != todo);
 };
+
 watch(
   todos,
   (newVal) => {
@@ -51,6 +53,31 @@ onMounted(() => {
   name.value = localStorage.getItem("name") || "";
   todos.value = JSON.parse(localStorage.getItem("todos") || []);
 });
+</script>
+<script>
+export default {
+  props: {
+    todo: Object,
+  },
+  data() {
+    return {
+      isEditing: false,
+    };
+  },
+  methods: {
+    editContent() {
+      this.isEditing = true;
+      this.$nextTick(() => this.$refs.textarea.focus());
+    },
+    stopEditing() {
+      this.isEditing = false;
+    },
+    resizeTextarea() {
+      this.$refs.textarea.style.height = "auto";
+      this.$refs.textarea.style.height = `${this.$refs.textarea.scrollHeight}px`;
+    },
+  },
+};
 </script>
 
 <template>
@@ -93,7 +120,10 @@ onMounted(() => {
       </form>
     </section>
     <section class="todo-list">
-      <h3>TODO LIST</h3>
+      <div class="flex text-white justify-between">
+        <h3>TODO LIST</h3>
+        <Counter :count="todos.length" />
+      </div>
       <div class="todo-list">
         <div
           v-for="todo in todos_asc"
@@ -104,12 +134,22 @@ onMounted(() => {
             <input type="checkbox" v-model="todo.done" />
             <span :class="`bubble ${todo.category}`"></span>
           </label>
-          <div class="todo-content">
-            <input
-              type="text"
-              v-model="todo.content"
-              class="w-[350px] overflow-ellipsis overflow-hidden"
-            />
+          <div class="todo-content" @click="editContent">
+            <template v-if="!isEditing">
+              <span class="break-words overflow-ellipsis">{{
+                todo.content
+              }}</span>
+            </template>
+            <template v-else>
+              <textarea
+                v-model="todo.content"
+                ref="textarea"
+                rows="1"
+                max-rows="6"
+                @blur="stopEditing"
+                @input="resizeTextarea"
+              ></textarea>
+            </template>
           </div>
           <div class="actions">
             <button class="delete" @click="removeTodo(todo)">Delete</button>
